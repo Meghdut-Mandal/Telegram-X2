@@ -378,7 +378,7 @@ public class ImageReader {
       if (needSquare && bitmap.getWidth() != bitmap.getHeight()) {
         bitmap = TdlibFileGenerationManager.cropSquare(bitmap);
       }
-      if (file.isPrivate() || (!file.isWebp() && file.shouldUseBlur() && (file.needBlur() || (bitmap.getWidth() < 100 && bitmap.getHeight() < 100)))) {
+      if (false) {
         int res = N.blurBitmap(bitmap, file.isPrivate() ? 7 : file.getBlurRadius(), opts.inPurgeable ? 0 : 1, file.isPrivate() ? 1 : 0);
         if (res != 0) {
           Log.i(Log.TAG_IMAGE_LOADER, "#%s: Couldn't blur bitmap, resultCode: %d", file.toString(), res);

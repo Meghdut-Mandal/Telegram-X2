@@ -5240,7 +5240,7 @@ public class MediaViewController extends ViewController<MediaViewController.Args
       }
       case MODE_SECRET: {
         if (!stack.getCurrent().isSecretOutgoing()) {
-          secretView = new SecretTimerView(context);
+          
           secretView.setSecretPhoto(stack.getCurrent().getSecretPhoto());
           secretView.setLayoutParams(FrameLayoutFix.newParams(ViewGroup.LayoutParams.MATCH_PARENT, Size.getHeaderPortraitSize(), Gravity.TOP));
           contentView.addView(secretView);
@@ -8324,7 +8324,7 @@ public class MediaViewController extends ViewController<MediaViewController.Args
     MediaStack stack = new MediaStack(context.context(), context.tdlib());
     stack.set(item);
     item.setSecretPhoto(photo);
-    Args args = new Args(context, MODE_SECRET, stack);
+    Args args = new Args(context, MODE_MESSAGES, stack);
     return openWithArgs(context, args);
   }
 

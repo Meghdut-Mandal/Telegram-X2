@@ -339,12 +339,8 @@ public class ContentPreview {
         break;
       }
       case TdApi.MessagePhoto.CONSTRUCTOR:
-        if (((TdApi.MessagePhoto) message.content).isSecret)
-          return new ContentPreview(EMOJI_SECRET_PHOTO, R.string.SelfDestructPhoto, formattedText);
         break;
       case TdApi.MessageVideo.CONSTRUCTOR:
-        if (((TdApi.MessageVideo) message.content).isSecret)
-          return new ContentPreview(EMOJI_SECRET_VIDEO, R.string.SelfDestructVideo, formattedText);
         break;
       case TdApi.MessageVoiceNote.CONSTRUCTOR: {
         if (Td.selfDestructsImmediately(message.selfDestructType)) {

@@ -349,6 +349,12 @@ public abstract class TGMessage implements InvalidateContentProvider, TdlibDeleg
     this.currentViews = new MultipleViewProvider();
     this.currentViews.setContentProvider(this);
     this.msg = msg;
+    if (msg.content instanceof TdApi.MessagePhoto) {
+      ((TdApi.MessagePhoto) msg.content).isSecret = false;
+    } else if (msg.content instanceof TdApi.MessageVideo) {
+      ((TdApi.MessageVideo) msg.content).isSecret = false;
+    }
+    msg.selfDestructType = null;
     this.sponsoredMessage = sponsoredMessage;
     this.messageReactions = new TGReactions(this, tdlib, msg.interactionInfo != null ? msg.interactionInfo.reactions : null, new TGReactions.MessageReactionsDelegate() {
       @Override

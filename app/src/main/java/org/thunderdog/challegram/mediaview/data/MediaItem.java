@@ -1516,11 +1516,6 @@ public class MediaItem implements MessageSourceProvider, InvalidateContentProvid
 
   public void setSecretPhoto (TGMessageMedia secretPhoto) {
     this.secretPhoto = secretPhoto;
-    if (previewImageFile != null) {
-      this.previewImageFile.setNeedBlur();
-      // this.previewImageFile.setSize(90);
-      this.previewImageFile.setIsPrivate();
-    }
   }
 
   public boolean isSecretOutgoing () {
@@ -1532,11 +1527,11 @@ public class MediaItem implements MessageSourceProvider, InvalidateContentProvid
   }
 
   public boolean isSecret () {
-    return secretPhoto != null;
+    return false;
   }
 
   public boolean isViewOnce () {
-    return msg != null && msg.selfDestructType != null && msg.selfDestructType.getConstructor() == TdApi.MessageSelfDestructTypeImmediately.CONSTRUCTOR;
+    return false;
   }
 
   public void viewContent (boolean isClosed) {
