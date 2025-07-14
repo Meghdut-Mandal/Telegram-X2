@@ -258,7 +258,7 @@ public class Passcode implements UI.StateListener {
   }
 
   public boolean shouldDisallowScreenshots () {
-    return !allowScreenshots() && (isLocked() || (autolockMode != AUTOLOCK_MODE_NONE && mode != MODE_NONE));
+    return false;
   }
 
   public boolean isLocked () {

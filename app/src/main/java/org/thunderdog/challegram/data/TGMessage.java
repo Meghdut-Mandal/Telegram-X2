@@ -929,7 +929,7 @@ public abstract class TGMessage implements InvalidateContentProvider, TdlibDeleg
       if (allowMessageHorizontalExtend()) {
         float commentButtonWidth = commentButton.getAnimatedWidth(0, 1f);
         if (commentButtonWidth > width) {
-          width = Math.round(MathUtils.fromTo(width, commentButtonWidth, commentButton.getVisibility()));
+          width = (int) MathUtils.fromTo(width, commentButtonWidth, commentButton.getVisibility());
         }
       }
     }
@@ -5151,7 +5151,7 @@ public abstract class TGMessage implements InvalidateContentProvider, TdlibDeleg
   }
 
   public boolean canBeSaved () {
-    return msg.canBeSaved;
+    return true;
   }
 
   public boolean isUnread () {
@@ -5542,11 +5542,11 @@ public abstract class TGMessage implements InvalidateContentProvider, TdlibDeleg
   }
 
   public boolean isHotOpened () {
-    if (msg.selfDestructType != null && msg.selfDestructType.getConstructor() == TdApi.MessageSelfDestructTypeTimer.CONSTRUCTOR) {
-      TdApi.MessageSelfDestructTypeTimer timer = (TdApi.MessageSelfDestructTypeTimer) msg.selfDestructType;
-      return msg.selfDestructIn != 0 && msg.selfDestructIn < timer.selfDestructTime;
+    if (msg.selfDestructType == null || msg.selfDestructType.getConstructor() != TdApi.MessageSelfDestructTypeTimer.CONSTRUCTOR) {
+      return false;
     }
-    return false;
+    TdApi.MessageSelfDestructTypeTimer timer = (TdApi.MessageSelfDestructTypeTimer) msg.selfDestructType;
+    return msg.selfDestructIn != 0 && msg.selfDestructIn < timer.selfDestructTime;
   }
 
   protected boolean needHotTimer () {

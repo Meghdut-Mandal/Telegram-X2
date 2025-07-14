@@ -151,7 +151,7 @@ public class TdlibMessageViewer {
     }
 
     public boolean needRestrictScreenshots () {
-      return message != null && !message.canBeSaved;
+      return false;
     }
 
     public boolean needScreenshotNotification () {

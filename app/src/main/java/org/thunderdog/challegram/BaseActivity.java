@@ -2689,33 +2689,13 @@ public abstract class BaseActivity extends ComponentActivity implements View.OnT
       // Allow screen capture in Firebase Labs
       return;
     }
-    boolean disallowScreenshots = false;
-    disallowScreenshots = (navigation.shouldDisallowScreenshots() || Passcode.instance().shouldDisallowScreenshots());
-    if (tdlib != null && tdlib.messageViewer().needRestrictScreenshots()) {
-      disallowScreenshots = true;
-    }
-    for (PopupLayout popupLayout : windows) {
-      boolean shouldDisallowScreenshots = popupLayout.shouldDisallowScreenshots();
-      popupLayout.checkWindowFlags();
-      if (shouldDisallowScreenshots) {
-        disallowScreenshots = true;
-      }
-    }
-    for (int i = 0; i < forgottenWindows.size(); i++) {
-      PopupLayout popupLayout = forgottenWindows.valueAt(i);
-      if (popupLayout == null)
-        continue;
-      boolean shouldDisallowScreenshots = popupLayout.shouldDisallowScreenshots();
-      popupLayout.checkWindowFlags();
-      if (shouldDisallowScreenshots) {
-        disallowScreenshots = true;
-      }
-    }
-    setDisallowScreenshots(disallowScreenshots);
+    // Always allow screenshots - disable all screenshot restrictions
+    setDisallowScreenshots(false);
   }
 
   private void setDisallowScreenshots (boolean disallow) {
-    setWindowFlags(disallow ? WindowManager.LayoutParams.FLAG_SECURE : 0, WindowManager.LayoutParams.FLAG_SECURE);
+    // Never set FLAG_SECURE - always allow screenshots
+    setWindowFlags(0, WindowManager.LayoutParams.FLAG_SECURE);
   }
 
   public interface ActivityListener {

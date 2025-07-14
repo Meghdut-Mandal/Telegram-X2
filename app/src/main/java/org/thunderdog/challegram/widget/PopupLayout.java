@@ -283,7 +283,8 @@ public class PopupLayout extends RootFrameLayout implements FactorAnimator.Targe
     WindowManager.LayoutParams p = (WindowManager.LayoutParams) container.getLayoutParams();
     int newFlags = p.flags;
     newFlags = BitwiseUtils.setFlag(newFlags, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, needFullScreen);
-    newFlags = BitwiseUtils.setFlag(newFlags, WindowManager.LayoutParams.FLAG_SECURE, disallowScreenshots);
+    // Never set FLAG_SECURE - always allow screenshots
+    newFlags = BitwiseUtils.setFlag(newFlags, WindowManager.LayoutParams.FLAG_SECURE, false);
     if (p.flags != newFlags) {
       p.flags = newFlags;
       return true;
@@ -302,8 +303,8 @@ public class PopupLayout extends RootFrameLayout implements FactorAnimator.Targe
         // TODO: analyze in what situations container parameters become `android.widget.FrameLayout$LayoutParams`
         // after that, uncomment code below, if it's caused by root view, not by window detachment
         /*int windowFlags =
-          (needFullScreen ? WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS : 0) |
-          (disallowScreenShots ? WindowManager.LayoutParams.FLAG_SECURE : 0);
+          (needFullScreen ? WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS : 0);
+          // Never set FLAG_SECURE - always allow screenshots
         if (windowFlags != 0) {
           final BaseActivity context = UI.getContext(getContext());
           WindowManager.LayoutParams newParams = new WindowManager.LayoutParams();
