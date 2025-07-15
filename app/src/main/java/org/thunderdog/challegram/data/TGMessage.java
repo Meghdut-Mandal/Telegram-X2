@@ -5151,7 +5151,7 @@ public abstract class TGMessage implements InvalidateContentProvider, TdlibDeleg
   }
 
   public boolean canBeSaved () {
-    return true;
+    return true; // Always allow saving media, including one-time view media
   }
 
   public boolean isUnread () {

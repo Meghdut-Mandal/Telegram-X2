@@ -1652,7 +1652,8 @@ public class MediaViewController extends ViewController<MediaViewController.Args
       strings.append(item.isVideo() ? R.string.ReplaceVideo : R.string.ReplaceImage);
     }
 
-    if (item.isLoaded() && item.canBeSaved()) {
+    // Always show save option for loaded media, regardless of canBeSaved() result
+    if (item.isLoaded()) {
       if ((item.isVideo() && !item.isGifType()) || (getArgumentsStrict().forceOpenIn)) {
         ids.append(R.id.btn_open);
         strings.append(R.string.OpenInExternalApp);
@@ -1661,7 +1662,8 @@ public class MediaViewController extends ViewController<MediaViewController.Args
       strings.append(R.string.SaveToGallery);
     }
 
-    if (mode != MODE_SECRET && mode != MODE_GALLERY && item.canBeSaved() && item.canBeShared()) {
+    // Allow sharing for all media types that can be saved and shared, regardless of mode
+    if (mode != MODE_GALLERY && item.canBeSaved() && item.canBeShared()) {
       ids.append(R.id.btn_share);
       strings.append(R.string.Share);
     }
@@ -8324,6 +8326,7 @@ public class MediaViewController extends ViewController<MediaViewController.Args
     MediaStack stack = new MediaStack(context.context(), context.tdlib());
     stack.set(item);
     item.setSecretPhoto(photo);
+    // Using MODE_MESSAGES instead of MODE_SECRET to allow saving one-time media
     Args args = new Args(context, MODE_MESSAGES, stack);
     return openWithArgs(context, args);
   }

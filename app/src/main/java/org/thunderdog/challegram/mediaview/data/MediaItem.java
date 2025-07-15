@@ -1527,10 +1527,12 @@ public class MediaItem implements MessageSourceProvider, InvalidateContentProvid
   }
 
   public boolean isSecret () {
+    // Always return false to allow saving one-time media
     return false;
   }
 
   public boolean isViewOnce () {
+    // Always return false to allow saving one-time media
     return false;
   }
 
@@ -1665,13 +1667,16 @@ public class MediaItem implements MessageSourceProvider, InvalidateContentProvid
   }
 
   public boolean canBeSaved () {
-    if (msg != null) {
-      return msg.canBeSaved;
+    // Always allow saving media, including one-time view media
+    if (type == TYPE_GALLERY_PHOTO || type == TYPE_GALLERY_VIDEO || type == TYPE_GALLERY_GIF) {
+      return true;
     }
     if (type == TYPE_CHAT_PROFILE) {
       TdApi.Chat chat = tdlib.chat(sourceChatId);
       return chat != null && !chat.hasProtectedContent;
-    } else if (type == TYPE_GALLERY_PHOTO || type == TYPE_GALLERY_VIDEO || type == TYPE_GALLERY_GIF) {
+    }
+    // For messages, always allow saving regardless of the message's canBeSaved flag
+    if (msg != null) {
       return true;
     }
     return getShareFile() != null;
